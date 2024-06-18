@@ -208,7 +208,7 @@ T1e7nx65     : SMTP nastavenie
 T1tbx2cp     : E-mail odosielateľa
 Titpmq5      : SMTP server
 Tww2dw4      : SMTP možnosti
-T189bd17     : Možnosti SMTP musia byť v platnom formáte JSON podľa dokumentácie Total.js
+T189bd17     : Možnosti SMTP musia byť v platnom formáte JSON podľa dokumentácie WhoMeta Hub
 T13gs4nu     : Dokumentácia
 T1p9z8wo     : Server SMTP ešte nie je nakonfigurovaný.
 T20b5iu      : Server SMTP je správne nakonfigurovaný.
@@ -229,8 +229,8 @@ T706k13      : # strán,# strana,# strany,# strán
 Tmm5bl3      : # položiek,# položka,# položky,# položiek
 Tagsor7      : Neplatné data
 T2cba        : teraz
-T16y5rh      : Total.js TMS
-T1hw0tk2     : Total.js Message Service Vám povolí zachytiť data z OpenPlatformy pomocou Total.js Flow - vizuálne programovateľné rozhranie.
+T16y5rh      : WhoMeta Hub TMS
+T1hw0tk2     : WhoMeta Hub Message Service Vám povolí zachytiť data z OpenPlatformy pomocou WhoMeta Hub Flow - vizuálne programovateľné rozhranie.
 T1s93rwd     : Povoliť TMS
 Tbupqhp      : Prístupový token
 Tv0c3o5      : Vygenerovať

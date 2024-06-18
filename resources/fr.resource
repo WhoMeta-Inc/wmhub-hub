@@ -225,8 +225,8 @@ T1t3         : IP
 T1b3mt7h     : Êtes-vous sûr de vouloir supprimer les commentaires sélectionnés ?
 Tgdx3fy      : Etes-vous sûr de vouloir supprimer les groupes sélectionnés ?
 T1qe2tcp     : Icône 150x150
-T16y5rh      : Total.js TMS
-T1hw0tk2     : Total.js Message Service vous permet de capturer des données depuis l&#39;OpenPlatform en utilisant l&#39;interface de programmation visuelle Total.js Flow.
+T16y5rh      : WhoMeta Hub TMS
+T1hw0tk2     : WhoMeta Hub Message Service vous permet de capturer des données depuis l&#39;OpenPlatform en utilisant l&#39;interface de programmation visuelle WhoMeta Hub Flow.
 T1s93rwd     : Activer  TMS
 Tbupqhp      : Jeton d&#39;accès
 Tv0c3o5      : Générer
@@ -236,7 +236,7 @@ T1e7nx65     : Paramètres SMTP
 T1tbx2cp     : Adresse de l&#39;expéditeur
 Titpmq5      : Serveur SMTP
 Tww2dw4      : Options SMTP
-T189bd17     : Les options SMTP doivent être au format JSON valide, selon la documentation Total.js
+T189bd17     : Les options SMTP doivent être au format JSON valide, selon la documentation WhoMeta Hub
 T13gs4nu     : Documentation
 T1p9z8wo     : Le serveur SMTP n&#39;est pas encore configuré.
 T20b5iu      : Le serveur SMTP est configuré correctement.

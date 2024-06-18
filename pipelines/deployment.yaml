@@ -1,0 +1,156 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-postgres
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/postgres
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-whometa-hub
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/whometa-hub
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-whometa-hub
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: "total"
+        - name: POSTGRES_PASSWORD
+          value: "platform"
+        - name: POSTGRES_DB
+          value: "openplatform"
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: pvc-postgres
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  ports:
+  - port: 5432
+  selector:
+    app: postgres
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whometa-hub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whometa-hub
+  template:
+    metadata:
+      labels:
+        app: whometa-hub
+    spec:
+      containers:
+      - name: whometa-hub
+        image: wmhub
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE
+          value: "postgresql://total:platform@postgres:5432/openplatform"
+        volumeMounts:
+        - mountPath: /www/databases
+          name: whometa-hub-storage
+      volumes:
+      - name: whometa-hub-storage
+        persistentVolumeClaim:
+          claimName: pvc-whometa-hub
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whometa-hub
+spec:
+  ports:
+  - port: 8000
+  selector:
+    app: whometa-hub
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: whometa-hub-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: hub.whometa.eu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: whometa-hub
+            port:
+              number: 8000

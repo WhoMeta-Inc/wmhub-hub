@@ -313,14 +313,14 @@ INSERT INTO "op"."cl_config" ("id", "value", "type", "name") VALUES
 	('$tms', 'false', 'boolean', 'Allow TMS'),
 	('allow_token', 'false', 'boolean', 'Allow API'),
 	('cdn', 'https://cdn.componentator.com/', 'string', 'CDN'),
-	('color', '#4285F4', 'string', 'Color'),
+	('color', '#119CBC', 'string', 'Color'),
 	('icon', '', 'string', 'Icon'),
 	('id', '{id}', 'string', 'ID'),
 	('language', 'eu', 'string', 'A default language'),
 	('mail_from', '', 'string', 'Sender address'),
 	('mail_smtp', '', 'string', 'SMTP server'),
 	('mail_smtp_options', '{"port":465,"secure":true,"user":"","password":""}', 'object', 'SMTP options'),
-	('name', 'OpenPlatform', 'string', 'Name'),
+	('name', 'WhoMeta Hub', 'string', 'Name'),
 	('salt', '{salt}', 'string', 'Salt for passwords'),
 	('saltchecksum', '{saltchecksum}', 'string', 'Salf for checksums'),
 	('secret', '{secret}', 'string', 'Secret for tokens'),
@@ -332,7 +332,7 @@ INSERT INTO "op"."cl_config" ("id", "value", "type", "name") VALUES
 INSERT INTO "op"."tbl_group" ("id", "name", "dtcreated") VALUES('{groupid}', 'Admin', NOW());
 
 -- DEFAULT USER
-INSERT INTO "op"."tbl_user" ("id", "token", "name", "search", "email", "password", "color", "sa", "isconfirmed", "dtcreated") VALUES('{userid}', '{token}', 'John Connor', 'john conor', 'info@totaljs.com', '{password}', '#4285F4', 't', 't', NOW());
+INSERT INTO "op"."tbl_user" ("id", "token", "name", "search", "email", "password", "color", "sa", "isconfirmed", "dtcreated") VALUES('{userid}', '{token}', 'John Connor', 'john conor', 'admin@whometa.io', '{password}', '#119CBC', 't', 't', NOW());
 
 -- ASSIGN A DEFAULT GROUP TO THE USER
 INSERT INTO "op"."tbl_user_group" ("id", "userid", "groupid") VALUES('{userid}{groupid}', '{userid}', '{groupid}');

@@ -275,8 +275,8 @@ Ty8frkm   : Marcador
 T17eh95w  : Memoria usada
 T185y3gq  : Usuarios Registrados
 T1t8blnf  : Esta configuración permite que las aplicaciones externas lean todos los grupos y perfiles de usuario a través del punto de acceso REST. El siguiente token debe configurarse en el encabezado X-Token o mediante el parámetro de consulta "?token=".
-T16y5rh   : Total.js TMS
-T189bd17  : Las opciones SMTP deben estar en formato JSON válido, según la documentación de Total.js
-T1hw0tk2  : El servicio de mensajes Total.js te permite capturar datos de OpenPlatform utilizando la interfaz de programación visual Total.js Flow.
+T16y5rh   : WhoMeta Hub TMS
+T189bd17  : Las opciones SMTP deben estar en formato JSON válido, según la documentación de WhoMeta Hub
+T1hw0tk2  : El servicio de mensajes WhoMeta Hub te permite capturar datos de OpenPlatform utilizando la interfaz de programación visual WhoMeta Hub Flow.
 T19ewry0  : Idioma
 T1h2tt0h  : Por defecto

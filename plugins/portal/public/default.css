@@ -25,7 +25,7 @@ header .apps { padding: 5px 120px 0 0; margin-left: 250px; margin-right: 100px; 
 header .apps ui-bind { position: relative; display: inline-block; margin-left: 10px; }
 header .apps ui-bind button { margin-left: 2px; }
 header .apps button { position: relative; display: inline-block; width: 35px; height: 35px; text-align: center; line-height: 32px; color: #A0A0A0; font-size: 18px; border: 0; background-color: transparent; }
-header .apps button span { position: absolute; font-size: 6px; color: #68B25B; margin: 32px 0 0 6px; }
+header .apps button span { position: absolute; font-size: 6px; color: #119CBC; margin: 32px 0 0 6px; }
 header .apps button:hover { color: #000; }
 header .apps button.selected { color: #000; }
 header .apps button.startmenubutton { color: var(--color); transition-duration: 0.3s; background-color: #FFF; border-radius: 8px; box-shadow: 1px 1px 3px rgba(0,0,0,0.1); text-align: center; padding: 0; margin: 0; }
@@ -45,7 +45,7 @@ header .apps button.startmenubutton:active:after { padding: 0; margin: 0; opacit
 .menu > a, .menu > button { display: block; width: 38px; line-height: 38px; height: 38px; text-align: center; font-size: 18px; border-radius: var(--radius); color: #999; margin: 0 auto; margin-bottom: 5px; border: 1px solid transparent; }
 .menu hr { margin: 10px 0; border-color: #EBEBEB; }
 .menu > a:hover, .menu > button:hover, .menu > a.selected, .menu > button.selected { background-color: #EBEBEB; color: #000; border-color: #EBECF2; }
-.menu > a .running { font-size: 6px; color: #68B25B; position: absolute; margin: 15px 0 0 24px; }
+.menu > a .running { font-size: 6px; color: #119CBC; position: absolute; margin: 15px 0 0 24px; }
 .menu.bottom { border-top: 1px solid #EBEBEB; }
 main { margin-left: 80px; }
 

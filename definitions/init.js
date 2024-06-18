@@ -15,7 +15,7 @@ async function reconfigure() {
 		CONF.icon = '/img/icon.png';
 
 	if (!CONF.color)
-		CONF.color = '#4285F4';
+		CONF.color = '#119CBC';
 
 	var hostname = CONF.url;
 	if (hostname) {

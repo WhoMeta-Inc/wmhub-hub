@@ -243,8 +243,8 @@ T1s93dvh     : Enable API
 Tbupqhp      : Access token
 Tv0c3o5      : Generate
 Ttv3f05      : Endpoint
-T16y5rh      : Total.js TMS
-T1hw0tk2     : The Total.js Message Service allows you to capture data from the OpenPlatform using the Total.js Flow Visual Programming Interface.
+T16y5rh      : Who
+T1hw0tk2     : The WhoMeta Hub Message Service allows you to capture data from the OpenPlatform using the WhoMeta Hub Flow Visual Programming Interface.
 T1s93rwd     : Enable TMS
 Tvywxyz      : TMS endpoint
 T1jsmq       : Test
@@ -252,7 +252,7 @@ T1e7nx65     : SMTP settings
 T1tbx2cp     : Sender address
 Titpmq5      : SMTP server
 Tww2dw4      : SMTP options
-T189bd17     : SMTP options have to be in valid JSON format, according to the Total.js documentation
+T189bd17     : SMTP options have to be in valid JSON format, according to the WhoMeta Hub documentation
 T13gs4nu     : Documentation
 T1p9z8wo     : SMTP server is not configured yet.
 T20b5iu      : SMTP server is configured correctly.

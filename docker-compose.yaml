@@ -20,7 +20,7 @@ services:
 
   openplatform:
     container_name: openplatform
-    image: totalplatform/openplatform:latest
+    image: wmhub
     ports:
       - 8000:8000
     volumes:
