@@ -15,7 +15,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: your-service-account
-  namespace: partner
+  namespace: prod
 roleRef:
   kind: ClusterRole
   name: persistent-volume-access
