@@ -1,126 +1,117 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+apiVersion: v1
+kind: Namespace
 metadata:
-  name: persistent-volume-access
-rules:
-- apiGroups: [""]
-  resources: ["persistentvolumes", "persistentvolumeclaims"]
-  verbs: ["get", "list", "watch", "create", "delete", "update", "patch"]
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: persistent-volume-access-binding
-subjects:
-- kind: ServiceAccount
-  name: your-service-account
-  namespace: prod
-roleRef:
-  kind: ClusterRole
-  name: persistent-volume-access
-  apiGroup: rbac.authorization.k8s.io
-
+  name: prod
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-postgres
+  name: whometa-hub-postgres-pv
+  namespace: prod
 spec:
   capacity:
-    storage: 1Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
   hostPath:
-    path: /mnt/data/postgres
+    path: "/mnt/data/whometa-hub-postgres"
 
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-postgres
+  name: whometa-hub-postgres-pvc
   namespace: prod
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: manual
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
 
 ---
+
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-whometa-hub
+  name: whometa-hub-openplatform-pv
+  namespace: prod
 spec:
   capacity:
-    storage: 1Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
   hostPath:
-    path: /mnt/data/whometa-hub
+    path: "/mnt/data/whometa-hub-openplatform"
 
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-whometa-hub
+  name: whometa-hub-openplatform-pvc
   namespace: prod
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: manual
   resources:
     requests:
-      storage: 1Gi
-
+      storage: 10Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: whometa-hub-postgres
   namespace: prod
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: whometa-hub-postgres
+  replicas: 1
   template:
     metadata:
       labels:
-        app: postgres
+        app: whometa-hub-postgres
     spec:
       containers:
-      - name: postgres
-        image: postgres:latest
-        ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_USER
-          value: "total"
-        - name: POSTGRES_PASSWORD
-          value: "platform"
-        - name: POSTGRES_DB
-          value: "openplatform"
-        volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: postgres-storage
+        - name: postgres
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "total"
+            - name: POSTGRES_PASSWORD
+              value: "platform"
+            - name: POSTGRES_DB
+              value: "openplatform"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
       volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: pvc-postgres
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: whometa-hub-postgres-pvc
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: whometa-hub-postgres
   namespace: prod
 spec:
   ports:
-  - port: 5432
+    - port: 5432
   selector:
-    app: postgres
-
+    app: whometa-hub-postgres
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -128,32 +119,33 @@ metadata:
   name: whometa-hub
   namespace: prod
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: whometa-hub
+  replicas: 1
   template:
     metadata:
       labels:
         app: whometa-hub
     spec:
       containers:
-      - name: whometa-hub
-        image: wmhub
-        ports:
-        - containerPort: 8000
-        env:
-        - name: DATABASE
-          value: "postgresql://total:platform@postgres:5432/openplatform"
-        volumeMounts:
-        - mountPath: /www/databases
-          name: whometa-hub-storage
+        - name: openplatform
+          image: wmacs.azurecr.io/whometa/whometa-hub:latest # Passen Sie das Docker-Image an
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE
+              value: "postgresql://total:platform@whometa-hub-postgres:5432/openplatform"
+          volumeMounts:
+            - mountPath: /www/databases
+              name: openplatform-storage
       volumes:
-      - name: whometa-hub-storage
-        persistentVolumeClaim:
-          claimName: pvc-whometa-hub
+        - name: openplatform-storage
+          persistentVolumeClaim:
+            claimName: whometa-hub-openplatform-pvc
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -161,10 +153,9 @@ metadata:
   namespace: prod
 spec:
   ports:
-  - port: 8000
+    - port: 8000
   selector:
     app: whometa-hub
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -177,17 +168,17 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - hub.whometa.eu
-    secretName: whometa-hub-tls
+    - hosts:
+        - hub.whometa.eu
+      secretName: whometa-hub-tls
   rules:
-  - host: hub.whometa.eu
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: whometa-hub
-            port:
-              number: 8000
+    - host: hub.whometa.eu
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: whometa-hub
+                port:
+                  number: 8000
