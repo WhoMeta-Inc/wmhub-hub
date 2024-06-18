@@ -15,6 +15,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-postgres
+  namespace: prod
 spec:
   accessModes:
     - ReadWriteOnce
@@ -40,6 +41,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-whometa-hub
+  namespace: prod
 spec:
   accessModes:
     - ReadWriteOnce
@@ -52,6 +54,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
+  namespace: prod
 spec:
   replicas: 1
   selector:
@@ -87,6 +90,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres
+  namespace: prod
 spec:
   ports:
   - port: 5432
@@ -98,6 +102,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: whometa-hub
+  namespace: prod
 spec:
   replicas: 1
   selector:
@@ -129,6 +134,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: whometa-hub
+  namespace: prod
 spec:
   ports:
   - port: 8000
@@ -140,9 +146,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: whometa-hub-ingress
+  namespace: prod
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-azure
 spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - hub.whometa.eu
+    secretName: whometa-hub-tls
   rules:
   - host: hub.whometa.eu
     http:
