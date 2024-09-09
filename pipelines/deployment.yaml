@@ -3,23 +3,14 @@ kind: Namespace
 metadata:
   name: prod
 ---
-apiVersion: v1
-kind: PersistentVolume
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: whometa-hub-postgres-pv
-  namespace: prod
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: manual
-  hostPath:
-    path: "/mnt/data/whometa-hub-postgres"
-
+  name: azure-managed-disk
+provisioner: kubernetes.io/azure-disk
+parameters:
+  skuName: Standard_LRS # oder Premium_LRS je nach Bedarf
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -28,30 +19,11 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: manual
+  storageClassName: azure-managed-disk
   resources:
     requests:
       storage: 10Gi
-
 ---
-
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: whometa-hub-openplatform-pv
-  namespace: prod
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: manual
-  hostPath:
-    path: "/mnt/data/whometa-hub-openplatform"
-
----
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -60,7 +32,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: manual
+  storageClassName: azure-managed-disk
   resources:
     requests:
       storage: 10Gi
@@ -99,9 +71,7 @@ spec:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: whometa-hub-postgres-pvc
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -143,9 +113,7 @@ spec:
         - name: openplatform-storage
           persistentVolumeClaim:
             claimName: whometa-hub-openplatform-pvc
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
