@@ -65,8 +65,10 @@ spec:
               value: "platform"
             - name: POSTGRES_DB
               value: "openplatform"
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/data/pgdata
               name: postgres-storage
       volumes:
         - name: postgres-storage
@@ -109,7 +111,7 @@ spec:
             - name: DATABASE
               value: "postgresql://total:platform@whometa-hub-postgres:5432/openplatform"
           volumeMounts:
-            - mountPath: /www/databases
+            - mountPath: /var/lib/postgresql/data/pgdata
               name: openplatform-storage
       volumes:
         - name: openplatform-storage
