@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: whometa-hub-postgres-pvc
+  namespace: prod
+spec:
+  storageClassName: azure-managed-disk
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: whometa-hub-openplatform-pvc
+  namespace: prod
+spec:
+  storageClassName: azure-managed-disk
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

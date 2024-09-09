@@ -17,7 +17,6 @@ metadata:
   name: whometa-hub-postgres-pvc
   namespace: prod
 spec:
-  serviceAccountName: wm-serviceaccount
   accessModes:
     - ReadWriteOnce
   storageClassName: azure-managed-disk
