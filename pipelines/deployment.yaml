@@ -52,6 +52,7 @@ spec:
       labels:
         app: whometa-hub-postgres
     spec:
+      serviceAccountName: wm-serviceaccount  # Fügen Sie dies hinzu
       containers:
         - name: postgres
           image: postgres:latest
@@ -98,6 +99,7 @@ spec:
       labels:
         app: whometa-hub
     spec:
+      serviceAccountName: wm-serviceaccount  # Fügen Sie dies hinzu
       containers:
         - name: openplatform
           image: wmacs.azurecr.io/whometa/whometa-hub:latest # Passen Sie das Docker-Image an

@@ -4,9 +4,22 @@ metadata:
   name: cluster-admin-access-binding
 subjects:
 - kind: ServiceAccount
-  name: your-service-account
+  name: wm-serviceaccount
   namespace: prod
 roleRef:
   kind: ClusterRole
   name: cluster-admin-access
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: storage-admin-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: storage-admin
+subjects:
+- kind: ServiceAccount
+  name: wm-serviceaccount  # Ersetzen Sie dies durch den Namen Ihres Service Accounts
+  namespace: prod  # Passen Sie den Namespace an
