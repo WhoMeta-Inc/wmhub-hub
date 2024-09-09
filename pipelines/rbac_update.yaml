@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whometa-hub
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whometa-hub
+  template:
+    metadata:
+      labels:
+        app: whometa-hub
+    spec:
+      serviceAccountName: custom-service-account # Fügen Sie diesen Eintrag hinzu
+      containers:
+      - name: openplatform
+        image: wmacs.azurecr.io/whometa/whometa-hub:latest
+        ports:
+        - containerPort: 8000
+        ...
