@@ -55,7 +55,7 @@ spec:
       serviceAccountName: wm-serviceaccount  # Fügen Sie dies hinzu
       containers:
         - name: postgres
-          image: postgres:latest
+          image: postgres:16
           ports:
             - containerPort: 5432
           env:
